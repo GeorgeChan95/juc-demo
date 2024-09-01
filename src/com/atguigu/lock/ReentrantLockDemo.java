@@ -4,7 +4,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @ClassName ReentrantLockDemo
- * @Description TODO
+ * @Description 三个售票员，同时卖30张票，不能超卖
  * @Author George
  * @Date 2024/9/1 8:32
  */
