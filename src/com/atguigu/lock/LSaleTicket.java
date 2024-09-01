@@ -30,7 +30,7 @@ public class LSaleTicket {
     //创建三个线程
     public static void main(String[] args) {
 
-        LTicket ticket = new LTicket();
+        LTickets ticket = new LTickets();
 
         new Thread(()-> {
             for (int i = 0; i < 40; i++) {
