@@ -10,7 +10,7 @@ class Phone {
         System.out.println("------sendSMS");
     }
 
-    public synchronized void sendEmail() throws Exception {
+    public void sendEmail() throws Exception {
         System.out.println("------sendEmail");
     }
 
@@ -18,6 +18,35 @@ class Phone {
         System.out.println("------getHello");
     }
 }
+
+public class Lock_8 {
+    public static void main(String[] args) throws Exception {
+
+        Phone phone = new Phone();
+        Phone phone2 = new Phone();
+
+        new Thread(() -> {
+            try {
+                phone.sendSMS();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, "AA").start();
+
+        Thread.sleep(100);
+
+        new Thread(() -> {
+            try {
+//                phone.sendEmail();
+//                phone.getHello();
+                phone2.sendEmail();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, "BB").start();
+    }
+}
+
 
 /**
  * @Description: 8锁
@@ -56,30 +85,3 @@ class Phone {
 
  */
 
-public class Lock_8 {
-    public static void main(String[] args) throws Exception {
-
-        Phone phone = new Phone();
-        Phone phone2 = new Phone();
-
-        new Thread(() -> {
-            try {
-                phone.sendSMS();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }, "AA").start();
-
-        Thread.sleep(100);
-
-        new Thread(() -> {
-            try {
-               // phone.sendEmail();
-               // phone.getHello();
-                phone2.sendEmail();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }, "BB").start();
-    }
-}
