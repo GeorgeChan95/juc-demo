@@ -19,23 +19,24 @@ class MyTask extends RecursiveTask<Integer> {
     //拆分和合并过程
     @Override
     protected Integer compute() {
+//        System.out.println(Thread.currentThread().getName() + ", begin: " + begin + ", end: " + end);
         //判断相加两个数值是否大于10
         if((end-begin)<=VALUE) {
             //相加操作
             for (int i = begin; i <=end; i++) {
                 result = result+i;
             }
-        } else {//进一步拆分
+        } else {// 递归调用,切分为 2 个小任务
             //获取中间值
             int middle = (begin+end)/2;
             //拆分左边
             MyTask task01 = new MyTask(begin,middle);
             //拆分右边
             MyTask task02 = new MyTask(middle+1,end);
-            //调用方法拆分
+            // 执行:异步
             task01.fork();
             task02.fork();
-            //合并结果
+            // 同步阻塞获取执行结果
             result = task01.join()+task02.join();
         }
         return result;
